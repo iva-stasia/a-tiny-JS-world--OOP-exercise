@@ -1,51 +1,72 @@
 import { print } from './js/lib.js';
 
-const dog = {
-   species: 'dog',
-   name: 'Ozzy',
-   gender: 'male',
-   legs: 4,
-   hands: 0,
-   saying: 'Woof-woof!',
+class Inhabitant {
+   constructor(species, name, gender, legs, saying) {
+      this.species = species,
+      this.name = name,
+      this.gender = gender,
+      this.legs = legs,
+      this.saying = saying
+   }
+
+   toPrint() {
+      return `${this.species}. ${this.saying}! My name's ${this.name} and I'm ${this.gender}. I have ${this.legs} legs.`
+   }
 };
 
-const cat = {
-   species: 'cat',
-   name: 'Debbie',
-   gender: 'female',
-   legs: 4,
-   hands: 0,
-   saying: 'Meeeow!',
+class Human extends Inhabitant {
+   constructor({species = 'Human', name, gender, legs = '2', saying, hands = '2'}) {
+      super(species, name, gender, legs, saying)
+      this.hands = hands
+   }
+
+   toPrint() {
+      return `${super.toPrint()} As a human, I also have ${this.hands} hands.`
+   }
 };
 
-const women = {
-   species: 'human',
-   name: 'Gwen',
-   gender: 'female',
-   legs: 2,
-   hands: 2,
-   saying: 'Hi there!'
+class Animal extends Inhabitant {
+   constructor({species, name, gender, legs = '4', saying}) {
+      super(species, name, gender, legs, saying)
+   }
 };
 
-const man = {
-   species: 'human',
-   name: 'David',
-   gender: 'male',
-   legs: 2,
-   hands: 2,
-   saying: 'What\'s up?'
+class Man extends Human {
+   constructor({species, name, gender = 'male', legs, saying, hands}) {
+      super({species, name, gender, legs, saying, hands})
+   }
 };
 
-const catWomen = {
-   species: 'cat-human',
-   name: 'Dita',
-   gender: 'female',
-   legs: 2,
-   hands: 2,
-   saying: cat.saying
+class Woman extends Human {
+   constructor({species, name, gender = 'female', legs, saying, hands}) {
+      super({species, name, gender, legs, saying, hands})
+   }
 };
 
-const inhabitants = [dog, cat, women, man, catWomen];
-const inhabitantsKeys = ['species', 'name', 'gender', 'legs', 'hands', 'saying'];
+class Dog extends Animal {
+   constructor({species = 'Dog', name, gender, legs, saying}) {
+      super({species, name, gender, legs, saying})
+   }
+};
 
-inhabitants.forEach(inhabitant => {print(inhabitantsKeys.map(key => inhabitant[key]).join('; '))});
+class Cat extends Animal {
+   constructor({species = 'Cat', name, gender, legs, saying}) {
+      super({species, name, gender, legs, saying})
+   }
+};
+
+class CatWoman extends Woman {
+   constructor({species = 'Cat-Human', name, gender, legs, saying = cat.saying, hands}) {
+      super({species, name, gender, legs, saying, hands})
+   }
+};
+
+const man = new Man({name: 'Leon', saying: 'Glad to see you'});
+const woman = new Woman({name: 'Matilda', saying: 'Hello'});
+const dog = new Dog({name: 'Pretty', gender: 'male', saying: 'Woof-woof'});
+const cat = new Cat({name: 'Kitty', gender: 'female', saying: 'Meeeow'});
+const catWomen = new CatWoman({name: 'Selina'});
+
+const inhabitants = [dog, cat, woman, man, catWomen];
+
+inhabitants.forEach(inhabitant => {print(inhabitant.toPrint())});
