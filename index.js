@@ -2,26 +2,26 @@ import { print } from './js/lib.js';
 
 class Inhabitant {
    constructor(species, name, gender, legs, saying) {
-      this.species = species,
-      this.name = name,
-      this.gender = gender,
-      this.legs = legs,
-      this.saying = saying
+      this.species = species;
+      this.name = name;
+      this.gender = gender;
+      this.legs = legs;
+      this.saying = saying;
    }
 
    toPrint() {
-      return `${this.species}. ${this.saying.words}! My name's ${this.name} and I'm ${this.gender}. I have ${this.legs} legs.`
+      return `${this.species}. ${this.saying.words}! My name's ${this.name} and I'm ${this.gender}. I have ${this.legs} legs.`;
    }
 };
 
 class Human extends Inhabitant {
    constructor({species = 'Human', name, gender, legs = '2', saying, hands = '2'}) {
       super(species, name, gender, legs, saying)
-      this.hands = hands
+      this.hands = hands;
    }
 
    toPrint() {
-      return `${super.toPrint()} As a human, I also have ${this.hands} hands.`
+      return `${super.toPrint()} As a human, I also have ${this.hands} hands.`;
    }
 };
 
